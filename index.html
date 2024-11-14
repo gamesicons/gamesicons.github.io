@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games icons</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e2f;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .icon-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+        .icon-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .icon-item img {
+            width: 60px;
+            height: 60px;
+        }
+        .icon-item span {
+            font-size: 12px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Games Icons</h1>
+    <div class="icon-container" id="iconContainer"></div>
+
+    <script>
+        // Mapping of video game names to their icon URLs
+        const gameIcons = {
+            'minecraft': '/img/minecraft.png',
+            'fortnite': '/img/fortnite.png',
+            'zelda': '/img/zelda.png',
+            'mario': '/img/mario.png'
+            // Add more games as needed
+        };
+
+        // Get query parameters from the URL
+        const queryParams = new URLSearchParams(window.location.search);
+        const games = queryParams.get('games');
+
+        if (games) {
+            const gameList = games.split(',');
+            const iconContainer = document.getElementById('iconContainer');
+
+            gameList.forEach(game => {
+                const trimmedGame = game.trim().toLowerCase();
+                if (gameIcons[trimmedGame]) {
+                    const iconItem = document.createElement('div');
+                    iconItem.className = 'icon-item';
+
+                    const img = document.createElement('img');
+                    img.src = gameIcons[trimmedGame];
+                    img.alt = trimmedGame;
+
+                    const label = document.createElement('span');
+                    label.textContent = trimmedGame.charAt(0).toUpperCase() + trimmedGame.slice(1);
+
+                    iconItem.appendChild(img);
+                    iconItem.appendChild(label);
+                    iconContainer.appendChild(iconItem);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
